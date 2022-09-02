@@ -5,6 +5,12 @@ module.exports = {
         const comments = await CommentService.getAll();
         response.json(comments);
     },
+    store: async (request, response) => {
+        const {content, parentId} = request.body;
+
+        const comment = await CommentService.store(1, content, parentId);
+        response.json(comment);
+    },
     upvote: async (request, response) => {
         let {id} = request.params;
         const userId = 1;

@@ -2,6 +2,19 @@ const {PrismaClient} = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+async function store(authorId, content, parentId) {
+    return await prisma.comment.create({
+        data: {
+            authorId,
+            content,
+            parentId
+        },
+        include: {
+            author: true
+        }
+    });
+}
+
 async function getById(id) {
     return await prisma.comment.findUnique({
         where: {
@@ -95,5 +108,6 @@ async function getUpvoteByCommentAndAuthor(commentId, authorId) {
 module.exports = {
     getAll,
     upvote,
-    getUpvoteByCommentAndAuthor
+    getUpvoteByCommentAndAuthor,
+    store
 }

@@ -11,6 +11,7 @@ app.listen(APP_PORT, () => {
     console.log(`Server is online, visit at: ${URL}`);
 });
 
+app.use(express.json());
 app.use(cors());
 
 app.use('/api', apiRoutes);
