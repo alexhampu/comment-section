@@ -9,8 +9,14 @@
 * Run `docker-compose up -d`
 
 ## Start server
-* Copy `/server/.env.example` to `/server.env`
+* Copy `/server/.env.example` to `/server/.env`
 * Update config if necessary
 * Install dependencies by running `npm install`
 * Migrate the database `npm run migrate`
 * Start the server `npm run start`
+
+## Start client
+* Copy `/client/.env.example` to `/client/.env`
+* Update config if necessary
+* Install dependencies by running `npm install`
+* Start the client `npm run start`
