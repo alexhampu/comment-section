@@ -15,6 +15,7 @@ module.exports = {
         const {content, parentId} = request.body;
 
         const comment = await CommentService.store(1, content, parentId);
+
         response.json(comment);
     },
     upvote: async (request, response) => {
@@ -31,10 +32,14 @@ module.exports = {
         }
 
         try {
-            response.json(await CommentService.upvote(Number(id), userId));
+            const upvote = await CommentService.upvote(Number(id), userId);
+
+            const io = request.app.get('io');
+            io.emit(`comment-${id}.upvoted`, upvote);
+
+            response.json(upvote);
         } catch(e) {
             response.json(e);
         }
-
     }
 }
