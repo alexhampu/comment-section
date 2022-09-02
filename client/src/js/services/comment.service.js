@@ -1,6 +1,21 @@
 import {get, post} from "axios";
 import moment from "moment/moment.js";
 
+const commentMapper = (comment) => ({
+    ...comment,
+    replies: commentsMapper(comment.replies),
+    createdAt: moment(comment.createdAt).fromNow(),
+    updatedAt: moment(comment.updatedAt).fromNow(),
+});
+
+const commentsMapper = (comments) => {
+    if (!comments) {
+        return comments;
+    }
+
+    return comments.map((comment) => commentMapper(comment));
+};
+
 const getAll = async () => {
     const comments = await get('/comments');
 
@@ -8,20 +23,17 @@ const getAll = async () => {
         throw new Error("Couldn't get the comments from the backend");
     }
 
-    const commentMapper = (comments) => {
-        if (!comments) {
-            return comments;
-        }
+    return commentsMapper(comments.data);
+}
 
-        return comments.map((comment) => ({
-            ...comment,
-            replies: commentMapper(comment.replies),
-            createdAt: moment(comment.createdAt).fromNow(),
-            updatedAt: moment(comment.updatedAt).fromNow(),
-        }));
-    };
+const getReplies = async (id) => {
+    const comments = await get(`/comments/${id}/replies`);
 
-    return commentMapper(comments.data);
+    if (comments.status !== 200) {
+        throw new Error("Couldn't get the comments from the backend");
+    }
+
+    return commentsMapper(comments.data);
 }
 
 const upvote = async (commentId) => {
@@ -34,7 +46,22 @@ const upvote = async (commentId) => {
     throw new Error("Couldn't upvote comment");
 }
 
+const store = async (content, parentId) => {
+    const comments = await post(`/comments`, {
+        content,
+        parentId
+    });
+
+    if (comments.status === 200) {
+        return commentMapper(comments.data);
+    }
+
+    throw new Error("Couldn't upvote comment");
+}
+
 export default {
     getAll,
-    upvote
+    upvote,
+    store,
+    getReplies
 }
