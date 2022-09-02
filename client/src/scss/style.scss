@@ -17,6 +17,10 @@ body {
     @apply space-y-8 border-b pb-10;
   }
 
+  &__List {
+    @apply space-y-4;
+  }
+
   &__Title {
     @apply text-2xl font-bold;
   }
@@ -27,6 +31,10 @@ body {
 
   &__Input {
     @apply border p-3 rounded w-full;
+
+    &--error {
+      @apply border-red-600 placeholder-red-600;
+    }
   }
 
   &__Submit {
@@ -57,6 +65,10 @@ body {
     @apply text-gray-500 text-sm;
   }
 
+  &__Wrapper {
+    @apply space-y-5 flex-1;
+  }
+
   &__Footer {
     @apply flex gap-5 mt-4;
   }
@@ -80,8 +92,8 @@ body {
       @apply transition duration-300;
     }
 
-    &--upvote:hover i,
-    &--upvote:focus-within i, {
+    &--upvote:not(&--upvoted):hover i,
+    &--upvote:not(&--upvoted):focus-within i, {
       @apply transform -translate-y-1;
     }
 
