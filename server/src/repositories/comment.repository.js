@@ -12,8 +12,16 @@ async function getById(id) {
 
 async function getAll() {
     return await prisma.comment.findMany({
+        where: {
+            parentId: null
+        },
         include: {
-            author: true
+            author: true,
+            replies: {
+                include: {
+                    author: true
+                }
+            }
         }
     });
 }
