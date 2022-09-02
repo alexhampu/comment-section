@@ -47,13 +47,13 @@ const upvote = async (commentId) => {
 }
 
 const store = async (content, parentId) => {
-    const comments = await post(`/comments`, {
+    const comment = await post(`/comments`, {
         content,
         parentId
     });
 
-    if (comments.status === 200) {
-        return commentMapper(comments.data);
+    if (comment.status === 200) {
+        return commentMapper(comment.data);
     }
 
     throw new Error("Couldn't upvote comment");
