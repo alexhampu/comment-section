@@ -1,0 +1,18 @@
+{
+  "name": "@comment-section/client",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "sass": "^1.54.8",
+    "tailwindcss": "^3.1.8",
+    "vite": "^3.0.7"
+  }
+}

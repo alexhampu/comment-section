@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply antialiased bg-gray-100;
+}
+
+.Avatar {
+  @apply min-w-[2.5rem] w-10 h-10 rounded-full select-none;
+}
+
+.CommentSection {
+  @apply bg-white p-10 my-10 rounded-lg space-y-10 shadow;
+
+  &__Header {
+    @apply space-y-8 border-b pb-10;
+  }
+
+  &__Title {
+    @apply text-2xl font-bold;
+  }
+}
+
+.LeaveComment {
+  @apply flex gap-4 w-full items-center;
+
+  &__Input {
+    @apply border p-3 rounded w-full;
+  }
+
+  &__Submit {
+    @apply bg-primary py-2 px-4 rounded text-white font-bold;
+  }
+}
+
+.Comment {
+  @apply flex gap-5 relative;
+
+  &__Side {
+    @apply relative z-10;
+  }
+
+  &__Author {
+    @apply font-bold;
+  }
+
+  &__Separator {
+    @apply w-1 h-1 bg-gray-400 rounded-full block;
+  }
+
+  &__Header {
+    @apply flex items-center gap-2;
+  }
+
+  &__Time {
+    @apply text-gray-500 text-sm;
+  }
+
+  &__Footer {
+    @apply flex gap-5 mt-4;
+  }
+
+  &__Replies {
+    @apply space-y-5;
+
+    &::after {
+      @apply w-[2px] h-full bg-gray-300 block absolute top-0 left-5;
+      content: '';
+    }
+  }
+
+  &__Button {
+    @apply flex items-center gap-1 p-1 overflow-hidden text-sm font-bold;
+    @apply hover:text-primary focus-within:text-primary;
+    @apply outline-none;
+
+    &--upvote,
+    &--upvote i {
+      @apply transition duration-300;
+    }
+
+    &--upvote:hover i,
+    &--upvote:focus-within i, {
+      @apply transform -translate-y-1;
+    }
+
+    &--upvoted {
+      @apply text-primary;
+    }
+  }
+}

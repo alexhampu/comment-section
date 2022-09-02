@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Comment Section</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/src/style.scss"/>
+</head>
+<body>
+<main class="container">
+    <div class="CommentSection">
+        <div class="CommentSection__Header">
+            <div class="CommentSection__Title">Discussion</div>
+            <div class="LeaveComment">
+                <div>
+                    <img src="https://picsum.photos/seed/picsum/200/300" class="Avatar"/>
+                </div>
+                <div class="flex-1">
+                    <input class="LeaveComment__Input" placeholder="What are your thoughts?"/>
+                </div>
+                <div>
+                    <button type="button" class="LeaveComment__Submit">Comment</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="CommentSection__List">
+            <div class="Comment">
+                <div class="Comment__Side">
+                    <img src="https://picsum.photos/seed/picsum/200/300" class="Avatar"/>
+                </div>
+                <div class="space-y-5">
+                    <div>
+                        <div class="Comment__Header">
+                            <div class="Comment__Author">John Doe</div>
+                            <div class="Comment__Separator"></div>
+                            <div class="Comment__Time">45 min ago</div>
+                        </div>
+                        <div class="Comment__Content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis distinctio explicabo hic illum qui?</p>
+                        </div>
+                        <div class="Comment__Footer">
+                            <button type="button" class="Comment__Button Comment__Button--upvote">
+                                <span><i class="fa-solid fa-caret-up"></i></span>
+                                <span>Upvote</span>
+                            </button>
+                            <button type="button" class="Comment__Button">Reply</button>
+                        </div>
+                    </div>
+                    <div class="Comment__Replies">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script type="module" src="/src/script.js"></script>
+</body>
+</html>
