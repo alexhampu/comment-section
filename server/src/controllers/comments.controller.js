@@ -19,8 +19,7 @@ module.exports = {
         }
 
         try {
-            await CommentService.upvote(Number(id), userId);
-            response.status(204).send();
+            response.json(await CommentService.upvote(Number(id), userId));
         } catch(e) {
             response.json(e);
         }

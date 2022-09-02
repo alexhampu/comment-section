@@ -45,6 +45,8 @@ async function upvote(commentId, authorId) {
         }
     });
 
+    let created = false;
+
     if (upvote) {
         totalUpvotes--;
         await prisma.upvote.deleteMany({
@@ -61,19 +63,37 @@ async function upvote(commentId, authorId) {
                 authorId
             }
         });
+        created = true;
     }
+
+    totalUpvotes = Math.max(0, totalUpvotes);
 
     await prisma.comment.update({
         where: {
             id: comment.id
         },
         data: {
-            totalUpvotes: Math.max(0, totalUpvotes)
+            totalUpvotes
         }
-    })
+    });
+
+    return {
+        created,
+        totalUpvotes
+    };
+}
+
+async function getUpvoteByCommentAndAuthor(commentId, authorId) {
+    return await prisma.upvote.findFirst({
+        where: {
+            commentId,
+            authorId
+        }
+    });
 }
 
 module.exports = {
     getAll,
-    upvote
+    upvote,
+    getUpvoteByCommentAndAuthor
 }
