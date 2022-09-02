@@ -12,4 +12,5 @@
 * Copy `/server/.env.example` to `/server.env`
 * Update config if necessary
 * Install dependencies by running `npm install`
+* Migrate the database `npm run migrate`
 * Start the server `npm run start`
