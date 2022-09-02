@@ -19,7 +19,18 @@ async function getById(id) {
     return await prisma.comment.findUnique({
         where: {
             id
-        }
+        },
+        include: {
+            author: true,
+            replies: {
+                include: {
+                    author: true
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            }
+        },
     });
 }
 
@@ -33,8 +44,14 @@ async function getAll() {
             replies: {
                 include: {
                     author: true
+                },
+                orderBy: {
+                    createdAt: 'desc'
                 }
             }
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     });
 }
@@ -107,6 +124,7 @@ async function getUpvoteByCommentAndAuthor(commentId, authorId) {
 
 module.exports = {
     getAll,
+    getById,
     upvote,
     getUpvoteByCommentAndAuthor,
     store

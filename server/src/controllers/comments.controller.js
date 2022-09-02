@@ -5,6 +5,12 @@ module.exports = {
         const comments = await CommentService.getAll();
         response.json(comments);
     },
+    replies: async (request, response) => {
+        const {id} = request.params;
+
+        const comments = await CommentService.replies(Number(id));
+        response.json(comments);
+    },
     store: async (request, response) => {
         const {content, parentId} = request.body;
 

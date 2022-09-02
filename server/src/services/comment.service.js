@@ -24,11 +24,19 @@ async function getAll() {
     return commentMapper(comments);
 }
 
+async function replies(id) {
+    const comment = await CommentRepository.getById(id);
+
+    return commentMapper(comment.replies ?? []);
+}
+
 function upvote(commentId, userId) {
     return CommentRepository.upvote(commentId, userId);
 }
 
 module.exports = {
+    store,
     getAll,
-    upvote
+    upvote,
+    replies
 }
