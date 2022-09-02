@@ -1,3 +1,5 @@
+import CommentService from "../services/comment.service.js";
+
 const Template = {
     LEAVE_COMMENT: 'leaveComment',
     COMMENT: 'comment',
@@ -35,25 +37,26 @@ export function getLeaveCommentElement(parentId) {
         }
 
         inputElement.value = '';
-
-        console.log({data: element.dataset, value});
     });
 
     return element;
 }
 
-export function getCommentElement(id, authorName, time, content) {
+export function getCommentElement({id, author, createdAt, content, totalUpvotes, isUpvoted}) {
     const element = getTemplate(Template.COMMENT);
 
-    element.querySelector('.Comment__Author').innerText = authorName;
-    element.querySelector('.Comment__Time').innerText = time;
+    element.querySelector('.Comment__Author').innerText = author.name;
+    element.querySelector('.Comment__Time').innerText = createdAt;
     element.querySelector('.Comment__Content').innerText = content;
-    element.querySelector('.Comment__UpvoteLabel').innerText = 'Upvote';
-    element.querySelector('.Comment__UpvoteTotal span').innerText = 2;
+    element.querySelector('.Comment__UpvoteLabel').innerText = isUpvoted ? 'Upvoted' : 'Upvote';
+    element.querySelector('.Comment__UpvoteTotal span').innerText = totalUpvotes ?? 0;
+    if (isUpvoted) {
+        element.querySelector('.Comment__Button--upvote').classList.add('Comment__Button--upvoted');
+    }
 
     const avatarElement = document.createElement('img');
     avatarElement.classList.add('Avatar');
-    avatarElement.src = `https://picsum.photos/seed/avatar-${authorName}/200/200`;
+    avatarElement.src = `https://picsum.photos/seed/avatar-${author.id}/200/200`;
 
     element.querySelector('.Comment__Side').appendChild(avatarElement);
 
@@ -70,10 +73,19 @@ export function getCommentElement(id, authorName, time, content) {
     element.querySelector('.Comment__Button--upvote').addEventListener('click', function () {
         this.classList.toggle('Comment__Button--upvoted');
 
-        element.querySelector('.Comment__UpvoteLabel').innerText = this.classList
-            .contains('Comment__Button--upvoted') ? 'Upvoted' : 'Upvote';
+        CommentService.upvote(id).then(({created, totalUpvotes}) => {
+            if (created) {
+                this.classList.add('Comment__Button--upvoted');
+            } else {
+                this.classList.remove('Comment__Button--upvoted');
+            }
 
-        element.querySelector('.Comment__UpvoteTotal span').innerText = 5;
+            element.querySelector('.Comment__UpvoteLabel').innerText = created ? 'Upvoted' : 'Upvote';
+
+            element.querySelector('.Comment__UpvoteTotal span').innerText = totalUpvotes;
+        }).catch(() => {
+            this.classList.toggle('Comment__Button--upvoted');
+        });
     });
 
     return element;

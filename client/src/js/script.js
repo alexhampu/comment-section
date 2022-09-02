@@ -1,14 +1,12 @@
 import './core/axios-interceptor.js';
 import {getCommentElement, getLeaveCommentElement} from "./core/templates.js";
 import CommentService from "./services/comment.service.js";
-import moment from "moment";
 
 document.querySelector('.CommentSection__Header').appendChild(getLeaveCommentElement());
 
 function createComments(comments, parent) {
     const createComment = (comment, parentElement) => {
-        const commentElement = getCommentElement(comment.id, comment.author.name, moment(comment.createdAt).fromNow(),
-            comment.content);
+        const commentElement = getCommentElement(comment);
 
         parentElement.appendChild(commentElement);
 
@@ -20,7 +18,6 @@ function createComments(comments, parent) {
         const replySection = commentElement.querySelector('.Comment__Replies');
 
         if (comment.replies?.length) {
-            console.log({replies: comment.replies});
             createComments(comment.replies, replySection);
         } else {
             replySection.remove();
