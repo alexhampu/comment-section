@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  db:
+    ports:
+      - '32601:3306/tcp'
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - '32602:8080/tcp'

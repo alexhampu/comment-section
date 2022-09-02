@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0.30
+    environment:
+      MYSQL_DATABASE: web
+      MYSQL_ROOT_PASSWORD: dev123
