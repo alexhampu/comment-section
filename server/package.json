@@ -4,7 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run migrate && node server.js",
+    "dev": "node server.js",
     "migrate": "prisma migrate dev",
     "migrate:fresh": "prisma migrate reset"
   },
