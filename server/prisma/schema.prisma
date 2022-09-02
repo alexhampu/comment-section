@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  email String  @unique
+  comments Comment[]
+  upvotes Upvote[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String?
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  totalUpvotes Int @db.UnsignedInt @default(0)
+  upvotes Upvote[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Upvote {
+  author User    @relation(fields: [authorId], references: [id])
+  authorId Int
+  comment Comment    @relation(fields: [commentId], references: [id])
+  commentId Int
+  createdAt DateTime @default(now())
+
+  @@unique([authorId, commentId])
+}
