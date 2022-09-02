@@ -4,8 +4,8 @@ const cors = require('cors');
 const express = require('express');
 const { Server } = require("socket.io");
 const apiRoutes = require('./src/routes/api');
-const {WS_PORT = 4200, APP_PORT = 4201, APP_HOSTNAME = 'localhost'} = process.env;
-const URL = `http://${APP_HOSTNAME}:${APP_PORT}`;
+const {PORT = 4201, APP_HOSTNAME = 'localhost'} = process.env;
+const URL = `http://${APP_HOSTNAME}:${PORT}`;
 const app = express();
 
 app.use(express.json());
@@ -19,10 +19,10 @@ const io = new Server({
     }
 });
 
-io.listen(WS_PORT);
-
-app.set('io', io);
-
-app.listen(APP_PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is online, visit at: ${URL}`);
 });
+
+io.listen(server);
+
+app.set('io', io);
