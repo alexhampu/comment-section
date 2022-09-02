@@ -109,7 +109,8 @@ async function upvote(commentId, authorId) {
 
     return {
         created,
-        totalUpvotes
+        totalUpvotes,
+        authorId
     };
 }
 
