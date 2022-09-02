@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Comment Section</title>
 
@@ -12,60 +11,7 @@
     <link rel="stylesheet" href="/src/scss/style.scss"/>
 </head>
 <body>
-<main class="container">
-    <div class="CommentSection">
-        <div class="CommentSection__Header">
-            <div class="CommentSection__Title">Discussion</div>
-        </div>
-
-        <div class="CommentSection__List">
-
-        </div>
-    </div>
-</main>
-
-<template id="template_leave-comment">
-    <div class="LeaveComment">
-        <div>
-            <img src="https://picsum.photos/seed/picsum/200/300" class="Avatar"/>
-        </div>
-        <div class="flex-1">
-            <input class="LeaveComment__Input" placeholder="What are your thoughts?"/>
-        </div>
-        <div>
-            <button type="button" class="LeaveComment__Submit">Comment</button>
-        </div>
-    </div>
-</template>
-
-<template id="template_comment">
-    <div class="Comment">
-        <div class="Comment__Side"></div>
-        <div class="Comment__Wrapper">
-            <div>
-                <div class="Comment__Header">
-                    <div class="Comment__Author"></div>
-                    <div class="Comment__Separator"></div>
-                    <div class="Comment__Time"></div>
-                </div>
-                <div class="Comment__Content">
-                </div>
-                <div class="Comment__Footer">
-                    <button type="button" class="Comment__Button Comment__Button--upvote">
-                        <span><i class="fa-solid fa-caret-up"></i></span>
-                        <span class="Comment__UpvoteLabel"></span>
-                        <span class="Comment__UpvoteTotal">(<span>0</span>)</span>
-                    </button>
-                    <button type="button" class="Comment__Button Comment__Button--reply">Reply</button>
-                    <button type="button" class="Comment__Button Comment__Button--replies">Show replies</button>
-                </div>
-            </div>
-            <div class="Comment__ReplyWrapper"></div>
-            <div class="Comment__Replies"></div>
-        </div>
-    </div>
-</template>
-
-<script type="module" src="/src/js/script.js"></script>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
