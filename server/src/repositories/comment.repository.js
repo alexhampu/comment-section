@@ -1,21 +1,13 @@
-function getAll() {
-    return [
-        {
-            id: 1,
-            content: 'Hello world',
-            userId: 1
-        },
-        {
-            id: 2,
-            content: 'Another comment from me',
-            userId: 1
-        },
-        {
-            id: 3,
-            content: 'Hi John!',
-            userId: 2
+const {PrismaClient} = require("@prisma/client");
+
+const prisma = new PrismaClient();
+
+async function getAll() {
+    return await prisma.comment.findMany({
+        include: {
+            author: true
         }
-    ];
+    });
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 const CommentRepository = require('../repositories/comment.repository');
 
-function getAll() {
-    return CommentRepository.getAll();
+async function getAll() {
+    return await CommentRepository.getAll();
 }
 
 module.exports = {
