@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classNames from "classnames";
 
 import Comments from "./Comments.jsx";
 import CommentService from "../services/comment.service.js";
 import LeaveComment from "./LeaveComment.jsx";
+import {webSocket} from "../services/ws.service.js";
 
 const showReplies = (id, setReplies, setRequestedReplies) => {
     setRequestedReplies(true);
@@ -29,6 +30,16 @@ const Comment = ({comment}) => {
     const [isUpvoted, setIsUpvoted] = useState(comment.isUpvoted ?? false);
     const [totalUpvotes, setTotalUpvotes] = useState(comment.totalUpvotes ?? 0);
     const [leaveReplyVisibility, setLeaveReplyVisibility] = useState(false);
+
+    useEffect(() => {
+        webSocket.on(`comment-${comment.id}.upvoted`, (upvote) => {
+            if (upvote.authorId === 1) {
+                setIsUpvoted(upvote.created);
+            }
+
+            setTotalUpvotes(upvote.totalUpvotes);
+        });
+    }, []);
 
     return (
         <div className="Comment">
@@ -56,8 +67,8 @@ const Comment = ({comment}) => {
                         </button>
                         <button type="button" className="Comment__Button Comment__Button--reply"
                                 onClick={() => setLeaveReplyVisibility(!leaveReplyVisibility)}>Reply</button>
-                        <button type="button" className="Comment__Button Comment__Button--replies"
-                                onClick={() => showReplies(comment.id, setReplies, setRequestedReplies)}>Show replies</button>
+                        {comment.parentId && <button type="button" className="Comment__Button Comment__Button--replies"
+                                                     onClick={() => showReplies(comment.id, setReplies, setRequestedReplies)}>Show replies</button>}
                     </div>
                 </div>
                 {leaveReplyVisibility && <div className="Comment__ReplyWrapper">
